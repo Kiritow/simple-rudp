@@ -35,6 +35,8 @@ RUDP_SECRET=... ./rudp client -server http://example.com:7000 \
     -map 15353:[::1]:53
 ```
 
+`build.sh` 会把静态、去掉符号表的二进制构建到 `dist/rudp-<os>-<arch>`，也支持交叉编译：`./build.sh linux/arm64`，或 `./build.sh all`。
+
 ### 配置文件
 
 两个子命令都支持用 `-config` 指定 YAML 配置文件，键名与参数同名（`-` 写成 `_`）。带注释的完整示例见 [`examples/server.yaml`](examples/server.yaml) 和 [`examples/client.yaml`](examples/client.yaml)。
