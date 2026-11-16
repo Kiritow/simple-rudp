@@ -1,0 +1,34 @@
+# rudp client configuration:  rudp client -config client.yaml
+#
+# Every key matches the flag of the same name ("-" written as "_"); flags
+# given on the command line override this file.
+
+# Control API URL. Behind nginx, include the path the API is mounted under.
+server: "https://example.com/rudp"
+
+# Server tunnel address. Defaults to the server URL's host and the port the
+# server announces; set it if the tunnel port is reachable somewhere else.
+# tunnel: "203.0.113.7:7001"
+
+# Shared secret key, the same as the server's. $RUDP_SECRET overrides it.
+# Keep this file private (chmod 600) if you put the key here.
+# secret: ""
+
+# Accept any TLS certificate, e.g. the server's self-signed one.
+insecure: false
+
+# Ports to forward, either as with -map or as remote_port/local pairs.
+# Remote port 0 lets the server pick.
+mappings:
+  - "51820:127.0.0.1:51820"
+  - remote_port: 15353
+    local: "[::1]:53"
+
+# Interval between tunnel keepalives; after three go unanswered, reconnect.
+keepalive: 10s
+
+# Close the local sockets of peers idle for this long.
+peer_timeout: 2m
+
+# Log every peer and packet error.
+verbose: false

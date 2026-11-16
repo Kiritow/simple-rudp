@@ -1,0 +1,37 @@
+# rudp server configuration:  rudp server -config server.yaml
+#
+# Every key matches the flag of the same name ("-" written as "_"); flags
+# given on the command line override this file.
+
+# TCP address of the HTTP control API. Behind nginx, listen on loopback only.
+control: "127.0.0.1:7000"
+
+# UDP address clients send tunnel traffic to. Clients must reach it
+# directly, not through nginx.
+tunnel: ":7001"
+
+# Host to open public ports on; empty means all interfaces.
+bind: ""
+
+# Shared secret key, the same as the clients'. Generate one with
+# "rudp keygen". $RUDP_SECRET overrides it. Keep this file private
+# (chmod 600) if you put the key here.
+# secret: ""
+
+# Serve the control API over HTTPS with a self-signed certificate. Not
+# needed behind nginx, which usually terminates TLS itself.
+tls: false
+
+# Public ports clients may open. Leave out to allow any.
+allow_ports:
+  - 10000-20000
+  - 51820
+
+# Close a client's ports after this long without a heartbeat.
+session_timeout: 30s
+
+# Forget WAN peers idle for this long.
+peer_timeout: 2m
+
+# Log every peer and packet error.
+verbose: false
